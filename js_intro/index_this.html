@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Code Demos</title>
+	</head>
+	<body>
+		<script>
+
+			"use strict";
+
+			function myFunc(a, b) {
+				console.log(this);
+				console.log(arguments);
+			}
+
+			var o = {
+				myFunc: myFunc
+			};
+
+			myFunc();
+			window.myFunc();
+			o.myFunc();
+			console.log(o.myFunc === window.myFunc);
+
+			myFunc.call({ id: 3}, 3, 4);
+			myFunc.apply({ id: 3}, [3, 4]);
+
+			var fn = myFunc.bind({ id: 5}, 3);
+
+			fn();
+			fn.call({ id: 6});
+
+
+
+
+		</script>
+	</body>
+</html>

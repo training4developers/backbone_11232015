@@ -1,0 +1,21 @@
+{
+  "name": "intro-backbone-courseware",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.2",
+    "express": "^4.12.2",
+    "q": "^1.2.0",
+    "sqlite3": "^3.0.5",
+    "ws": "^0.7.1"
+  }
+}

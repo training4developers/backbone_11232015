@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Code Demos</title>
+	</head>
+	<body>
+		<script>
+
+			var l = [1,2,3,4];
+
+			l.push(5);
+			var t = l.pop();
+
+			console.log(l);
+			console.log(t);
+
+			l.unshift(0);
+			t = l.shift();
+
+			console.log(l);
+			console.log(t);
+
+			// l.forEach(function(value, index) {
+			// 	console.log(value);
+			// 	console.log(index);
+			// });
+
+			// for (var i=0; i<l.length; i++) {
+			// 	console.log(l[i]);
+			// }
+
+			l[4] = 5;
+			console.log(l);
+			console.log(l.length);
+
+			l[10000] = 6;
+			console.log(l);
+			console.log(l.length);
+
+			l.someOtherProp = "Bob";
+			console.dir(l);
+
+
+		</script>
+	</body>
+</html>

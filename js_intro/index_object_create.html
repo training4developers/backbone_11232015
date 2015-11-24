@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Code Demos</title>
+	</head>
+	<body>
+		<script>
+
+			"use strict";
+
+			// var p = new Person("Sujan", "Suresh");
+			//
+			// console.dir(Person);
+			// console.dir(p);
+			// console.log(Object.getPrototypeOf(p) === Person.prototype);
+
+			function Person(firstName, lastName) {
+				this.firstName = firstName;
+				this.lastName = lastName;
+			}
+
+			Person.prototype.getFullName = function() {
+				return this.firstName + " " + this.lastName;
+			};
+
+			function Employee(empId, firstName, lastName) {
+				var newObject = this;
+				newObject._super.call(newObject, firstName, lastName);
+				newObject.empId = empId;
+			}
+
+			Employee.prototype = Object.create(Person.prototype);
+			Employee.prototype.constructor = Employee;
+			Employee.prototype._super = Person;
+
+			Employee.prototype.getEmpInfo = function() {
+				return this.empId + " " + this.lastName + ", " + this.firstName;
+			}
+
+			var e = new Employee(1, "Katherine", "Toyota");
+			console.log(e.getEmpInfo());
+			console.log(e.getFullName());
+			console.dir(e);
+
+
+
+
+		</script>
+	</body>
+</html>

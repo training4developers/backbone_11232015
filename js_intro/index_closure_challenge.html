@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Code Demos</title>
+	</head>
+	<body>
+		<script>
+
+			"use strict";
+
+			var x=0, y=0, funcs=[];
+
+			for(;x<5;x++) {
+				let t = x;
+				funcs.push(function() {
+					console.log(t);
+				});
+			}
+
+			for (; y<5; y++) {
+				funcs[y]();
+			}
+
+		</script>
+	</body>
+</html>

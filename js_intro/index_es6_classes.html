@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Code Demos</title>
+	</head>
+	<body>
+		<script>
+
+			"use strict";
+
+			function Person(firstName, lastName) {
+
+				var _firstName, _lastName;
+
+				return new class {
+
+					constructor() {
+						_firstName = firstName;
+						_lastName = lastName;
+					}
+
+					get firstName() {
+						console.log("get firstname");
+						return _firstName;
+					}
+
+					set firstName(value) {
+						console.log("set firstname");
+						return _firstName = value;
+					}
+
+					get lastName() {
+						return _lastName;
+					}
+
+					set lastName(value) {
+						return _lastName = value;
+					}
+
+					getFullName() {
+						return this.firstName + " " + this.lastName;
+					}
+				}
+			}
+
+			var p = new Person("David", "Johnston");
+			p.firstName = "Katherine";
+			p.lastName = "Toyota";
+			console.log(p.getFullName());
+			console.dir(p);
+
+			// class Employee extends Person {
+			// 	constructor(empId, firstName, lastName) {
+			// 		super(firstName, lastName);
+			// 		this._empId = empId;
+			// 	}
+			//
+			// 	get empId() {
+			// 		return this._empId;
+			// 	}
+			//
+			// 	set empId(value) {
+			// 		this._empId = value;
+			// 	}
+			//
+			// 	getEmpInfo() {
+			// 		return this.empId + " " + this.lastName + ", " + this.firstName;
+			// 	}
+			//
+			// 	static createEmployee(empId, firstName, lastName) {
+			// 		return new Employee(empId, firstName, lastName);
+			// 	}
+			// }
+			//
+			// var e = Employee.createEmployee(3, "Justin", "Trudeau");
+			// console.log(e.getEmpInfo());
+			// console.dir(e);
+			// console.dir(Employee);
+
+		</script>
+	</body>
+</html>

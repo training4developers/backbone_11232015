@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Code Demos</title>
+	</head>
+	<body>
+		<script>
+
+			"use strict";
+
+
+
+			function outer() {
+
+				var h = "Hi!";
+
+				setTimeout(function() {
+					h = "Bye!";
+				}, 1000)
+
+				return function inner() {
+					 console.log(h);
+				};
+			}
+
+			var o = outer();
+
+			setTimeout(function() {
+				o();
+			}, 2000);
+
+
+
+		</script>
+	</body>
+</html>

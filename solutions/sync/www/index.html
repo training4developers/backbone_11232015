@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Introduction to Backbone.js</title>
+		<script id="view-widgets" type="text/x-handlerbars-template">
+			<div class="container">
+			  <h1>Widget Manager</h1>
+			  <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Name</th>
+			        <th>Size</th>
+			        <th>Color</th>
+			        <th>Quantity</th>
+			        <th>Actions</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      {{#each widgets}}
+			      <tr>
+			        <td>{{this.name}}</td>
+			        <td>{{this.size}}</td>
+			        <td>{{this.color}}</td>
+			        <td>{{this.quantity}}</td>
+			        <td><a href='#widget/{{this.id}}'>View</a> | <a href='#widget/{{this.id}}/edit'>Edit</a></td>
+			      </tr>
+			      {{/each}}
+			    </tbody>
+			  </table>
+			</div>
+		</script>
+		<script id="view-widget" type="text/x-handlerbars-template">
+			<div class="container">
+
+			  <h2>View Widget</h2>
+
+			  <div>
+			    <label>Widget Id:</label>
+			    {{widget.id}}
+			  </div>
+
+			  <div>
+			    <label>Name:</label>
+			    {{widget.name}}
+			  </div>
+
+			  <div>
+			    <label>Description:</label>
+			    {{widget.description}}
+			  </div>
+
+			  <div>
+			    <label>Color:</label>
+			    {{widget.color}}
+			  </div>
+
+			  <div>
+			    <label>Size:</label>
+			    {{widget.size}}
+			  </div>
+
+			  <div>
+			    <label>Quantity:</label>
+			    {{widget.quantity}}
+			  </div>
+
+			  <div>
+			    <button class="btn btn-primary" id="edit_widget" type="button">Edit</button>
+			    <button class="btn" id="goto_widget_list" type="button">Return to List</button>
+			    <button class="btn btn-danger" id="delete_widget" type="button">Delete</button>
+			  </div>
+
+			</div>
+		</script>
+		<script id="edit-widget" type="text/x-handlerbars-template">
+			<div class="container">
+			  <h2>{{widgetOp}} Widget</h2>
+
+			  <form class="form-horizontal">
+
+			    <div>
+			      <label for="widget_name">Name:</label>
+			      <input type="text" id="widget_name" name="widget_name" value="{{widget.name}}">
+			    </div>
+
+			    <div>
+			      <label for="widget_description">Description:</label>
+			      <input type="text" id="widget_description" name="widget_description" value="{{widget.description}}">
+			    </div>
+
+			    <div>
+			      <label for="widget_color">Color:</label>
+			      <input type="text" id="widget_color" name="widget_color" value="{{widget.color}}">
+			    </div>
+
+			    <div>
+			      <label for="widget_size">Size:</label>
+			      <input type="text" id="widget_size" name="widget_size" value="{{widget.size}}">
+			    </div>
+
+			    <div>
+			      <label for="widget_quantity">Quantity:</label>
+			      <input type="text" id="widget_quantity" name="widget_quantity" value="{{widget.quantity}}">
+			    </div>
+
+			    <div>
+			      <button class="btn btn-primary" id="save_widget" type="button">Save</button>
+			      <button class="btn" id="cancel_widget" type="button">Cancel</button>
+			    </div>
+
+			  </form>
+			</div>
+		</script>
+
+		<link href='lib/bootstrap.css' type="text/css" rel="stylesheet">
+		<link href='lib/bootstrap-theme.css' type="text/css" rel="stylesheet">
+
+
+		<script src="lib/jquery.js"></script>
+		<script src="lib/underscore.js"></script>
+		<script src="lib/backbone.js"></script>
+		<script src="lib/handlebars.js"></script>
+		<script src="lib/bootstrap.js"></script>
+		<script src="js/data.js"></script>
+		<script src="js/views.js"></script>
+		<script src="js/controller.js"></script>
+		<script src="js/router.js"></script>
+		<script src="js/index.js"></script>
+	</head>
+
+	<body>
+	</body>
+
+</html>

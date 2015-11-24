@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript Code Demos</title>
+	</head>
+	<body>
+		<script>
+
+			"use strict";
+
+			function* myFirstGenerator() {
+				console.log("yield 1");
+				yield 1;
+				console.log("yield 2");
+				yield 2;
+				console.log("yield 3");
+				yield 3;
+				console.log("yield 4");
+				yield 4;
+			}
+
+			for (let num of myFirstGenerator()) {
+				console.log(num);
+			}
+
+			var myObj = {};
+			myObj[Symbol.iterator] = myFirstGenerator;
+
+			for (let num of myObj) {
+				console.log(num);
+			}
+
+			var internalId = Symbol("internalId");
+			var internalId2 = Symbol("internalId2");
+
+			myObj[internalId] = 1;
+			myObj[internalId2] = 234;
+
+			console.dir(myObj);
+
+
+
+		</script>
+	</body>
+</html>
