@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+	</head>
+
+	<body>
+		<script>
+
+			var person = new Backbone.Model();
+
+			person.set("title", "Sir");
+			person.set("firstName", "John");
+			person.set("middleInitial", "A.");
+			person.set("lastName", "MacDonald");
+			person.set("shortBio", "First Prime Minister of Canada");
+
+			console.log(person.get("firstName"));
+			console.log(person.get("lastName"));
+			console.log(person.attributes);
+
+			person.on("change:firstName", function() {
+				console.log("person's first name was changed");
+				console.dir(arguments);
+			});
+
+			person.set("firstName", "Johnny");
+
+			person.set({
+				firstName: "John",
+				lastName: "Cabat"
+			});
+
+			console.dir(person);
+
+
+		</script>
+	</body>
+</html>

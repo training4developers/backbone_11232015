@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to jQuery</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	</head>
+
+	<body>
+
+		<table id="food-table">
+			<tr>
+				<th>Food</th>
+				<th>Country of Origin</th>
+				<th>Action</th>
+			</tr>
+			<tr>
+				<td>Pizza</td>
+				<td>Italy</td>
+				<td><button data-action-edit>Edit</button></td>
+			</tr>
+			<tr>
+				<td>Poutine</td>
+				<td>Canada</td>
+				<td><button data-action-edit>Edit</button></td>
+			</tr>
+			<tr>
+				<td>Hamburger</td>
+				<td>US</td>
+				<td><button data-action-edit>Edit</button></td>
+			</tr>
+			<tr>
+				<td>French Fries</td>
+				<td>France</td>
+				<td><button data-action-edit>Edit</button></td>
+			</tr>
+			<tr>
+				<td>Mamaliga</td>
+				<td>Moldova</td>
+				<td><button data-action-edit>Edit</button></td>
+			</tr>
+			<tr>
+				<td>Peking Duck</td>
+				<td>China</td>
+				<td><button data-action-edit>Edit</button></td>
+			</tr>
+			<tr>
+				<td>Chicken Curry</td>
+				<td>India</td>
+				<td><button data-action-edit>Edit</button></td>
+			</tr>
+		</table>
+
+		<!-- <span>Test Data</span> -->
+
+
+		<script>
+
+			$(function() {
+
+				// var span = $("span");
+				// var originalValue = span.html();
+				//
+				// var input = $("<input>");
+				// input.val(originalValue);
+				// span.empty().append(input);
+
+				$("#food-table").on("click", "[data-action-edit]", function(e) {
+
+					var tr = $(e.target).closest("tr");
+
+					tr.find("td:not(:last-child)").each(function(index, element) {
+
+						element = $(element);
+						var originalValue = element.text();
+						element.prop("originalValue", originalValue);
+
+						var input = $("<input>");
+						input.val(originalValue);
+						element.empty().append(input);
+					});
+
+					var tdAction = tr.find("td:last-child");
+
+					var buttonSave = $("<button data-action-save>Save</button>");
+					var buttonCancel = $("<button data-action-cancel>Cancel</button>");
+
+					tdAction.empty().append(buttonSave).append(buttonCancel);
+				});
+
+				$("#food-table").on("click", "[data-action-save]", function(e) {
+
+					var tr = $(e.target).closest("tr");
+
+					tr.find("td:not(:last-child)").each(function(index, element) {
+						$(element).html($(element).find("input").val());
+					});
+
+					var tdAction = tr.find("td:last-child");
+					var buttonEdit = $("<button data-action-edit>Edit</button>");
+					tdAction.empty().append(buttonEdit);
+				});
+
+				$("#food-table").on("click", "[data-action-cancel]", function(e) {
+
+					var tr = $(e.target).closest("tr");
+
+					tr.find("td:not(:last-child)").each(function(index, element) {
+						$(element).html($(element).prop("originalValue"));
+					});
+
+					var tdAction = tr.find("td:last-child");
+					var buttonEdit = $("<button data-action-edit>Edit</button>");
+					tdAction.empty().append(buttonEdit);
+				});
+
+
+
+			});
+
+		</script>
+
+
+
+
+
+	</body>
+</html>

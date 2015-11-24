@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to jQuery</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	</head>
+
+	<body>
+
+		<div>Some Content</div>
+
+		<script>
+
+			document.addEventListener("DOMContentLoaded", function() {
+				console.log("DOM Content Loaded 1!");
+			});
+
+			$(document).ready(function() {
+
+				console.log("DOM Content Loaded 2!");
+
+			});
+
+			$(function() {
+
+				console.log("DOM Content Loaded 3!");
+
+			});
+
+		</script>
+
+
+
+
+
+	</body>
+</html>

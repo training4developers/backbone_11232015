@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+	</head>
+
+	<body>
+		<script>
+
+			var Person = Backbone.Model.extend({
+
+				defaults: {
+					citizenship: "CA",
+					city: "Calgary",
+					province: "Alberta"
+				},
+
+				initialize: function(args) {
+
+					this.on("fun", function(message) {
+						console.log("go " + message);
+					});
+
+				},
+
+				getFullName: function() {
+					return this.get("firstName") + " " + this.get("lastName");
+				}
+
+			});
+
+			var person = new Person({
+				firstName: "Anthony",
+				lastName: "Duperreault",
+				
+			});
+
+			person.trigger("fun", "snowboarding");
+
+			console.log(person.getFullName());
+			console.log(person);
+
+
+			var Employee = Person.extend({
+
+				getEmpInfo: function() {
+					return this.get("empId") + " " + this.get("lastName") + ", " + this.get("firstName");
+				}
+
+			});
+
+			var emp = new Employee({
+				firstName: "George",
+				lastName: "Jones",
+				empId: 3
+			});
+
+			console.log(emp.getEmpInfo());
+			console.log(emp.getFullName());
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to jQuery</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	</head>
+
+	<body>
+
+		<div class="first">Some Content 1</div>
+		<div class="second">Some Content 2</div>
+		<div class="first">Some Content 3</div>
+
+		<script>
+
+			$(function() {
+
+				var selector = ".first";
+
+				$(selector).each(function(index, element) {
+					console.log($(element).html());
+				});
+
+				var nodeList = document.querySelectorAll(selector);
+				for (var x=0; x < nodeList.length; x++) {
+					console.log(nodeList[x].innerHTML);
+				}
+
+
+			});
+
+		</script>
+
+
+
+
+
+	</body>
+</html>

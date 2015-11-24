@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+	</head>
+
+	<body>
+		<script>
+
+			function Person(firstName, lastName) {
+
+				this.firstName = firstName;
+				this.lastName = lastName;
+
+			}
+
+			_.extend(Person.prototype, Backbone.Events);
+
+			var person1 = new Person("John", "Smith");
+
+			function hungryEventHandler(message) {
+				console.log("John gets something to eat. Go on a safari and kill a " + message + " with his bare hands and eat it raw.");
+			}
+
+			person1.on("hungry", hungryEventHandler);
+
+			person1.off("hungry", hungryEventHandler);
+
+			person1.once("hungry", hungryEventHandler);
+
+
+			var person2 = new Person("Tim", "Smith");
+
+			person2.on("hungry", function(message) {
+				console.log("Tim gets something to eat. Has the cook prepare a " + message + " and eats it with silverwear.");
+			});
+
+			function person2ListenToHungry() {
+				console.log("Send person1 a nice kale salad.");
+				person2.trigger("send a gift", "kale salad");
+			}
+
+			person2.listenTo(person1, "hungry", person2ListenToHungry);
+
+			person2.stopListening(person1, "hungry", person2ListenToHungry);
+
+			person1.listenTo(person2, "send a gift", function() {
+				console.log("person1 is confused and give it to his animals, so he can eat his animals later.");
+			});
+
+			person1.trigger("hungry", "wild beast");
+			//person2.trigger("hungry", "kale salad");
+
+
+		</script>
+	</body>
+</html>

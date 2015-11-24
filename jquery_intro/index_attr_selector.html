@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to jQuery</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+		<style>
+
+
+
+		</style>
+	</head>
+
+	<body>
+
+		<div id="content-1" class="first" data-prop="somevaluea">Some Content 1</div>
+		<div id="content-2" class="second" data-prop="somevaluea">Some Content 2</div>
+		<div id="content-3" class="first" data-prop="somevalueb">Some Content 3</div>
+
+		<script>
+
+			$(function() {
+
+				var selector = "[data-prop$='a']";
+
+				$(selector).each(function(index, element) {
+					console.log($(element).html());
+					var str = $(element).html();
+					$(element).html(str.toUpperCase());
+
+					$(element).css("font-weight","bold");
+				});
+
+				var nodeList = document.querySelectorAll(selector);
+				for (var x=0; x < nodeList.length; x++) {
+					console.log(nodeList[x].innerHTML);
+				}
+
+
+			});
+
+		</script>
+
+
+
+
+
+	</body>
+</html>

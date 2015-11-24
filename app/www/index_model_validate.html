@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+	</head>
+
+	<body>
+		<script>
+
+			var Person = Backbone.Model.extend({
+
+				defaults: {
+					citizenship: "CA",
+					city: "Calgary",
+					province: "Alberta"
+				},
+
+				getFullName: function() {
+					return this.get("firstName") + " " + this.get("lastName");
+				},
+
+				validate: function(attrs, options) {
+
+					console.log(options);
+
+					if (attrs.firstName == null || String(attrs.firstName).length === 0) {
+						return "Please specify a first name.";
+					}
+
+				}
+
+			});
+
+			var person = new Person({
+				id: 1,
+				firstName: "Anthony",
+				lastName: "Duperreault"
+			});
+
+			person.set("firstName", "", { validate: true });
+			console.log(person);
+
+		</script>
+	</body>
+</html>
