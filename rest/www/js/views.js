@@ -7,6 +7,14 @@ var ViewWidgetsView = Backbone.View.extend({
 		this.template = Handlebars.compile(source);
   },
 
+	events: {
+		"click [data-action-create]": "createWidget"
+	},
+
+	createWidget: function() {
+		this.trigger("create-widget");
+	},
+
   render: function() {
 		var html = this.template({ widgets: this.collection.toJSON() });
 		this.$el.html(html);

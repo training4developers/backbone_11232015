@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+		<script src="js/handlebars.js"></script>
+	</head>
+
+	<body>
+		<main>
+
+		</main>
+		<script>
+
+			var person = new Backbone.Model({
+				firstName: "Bob",
+				lastName: "Smith",
+				age: 34
+			});
+
+			var PersonView = Backbone.View.extend({
+
+				tagName: "paul",
+				className: "gavin",
+				id:"katie",
+
+				events: {
+					"click [data-action-ok]": "ok"
+				},
+
+				ok: function(e) {
+					console.log("its sunny outside, all is ok");
+
+					// dom element which triggered the event
+					console.dir(e.target);
+
+					// access to the view
+					console.dir(this);
+				},
+
+				template: function() {
+					return _.template(`
+						<div>First Name: <%- person.firstName %></div>
+						<div>Last Name: <%- person.lastName %></div>
+						<div>Age: <%- person.age %></div>
+						<div><button data-action-ok>Ok</button></div>
+					`);
+				},
+				render: function() {
+					this.$el.append(this.template()({
+						person: this.model.toJSON()
+					}));
+					return this.$el;
+				}
+			});
+
+			var personView = new PersonView({
+				model: person
+			});
+
+			// var personView2 = new PersonView({
+			// 	model: person
+			// });
+			//
+			// var personView3 = new PersonView({
+			// 	model: person
+			// });
+
+			$("main").append(personView.render());
+			personView.remove();
+
+
+		</script>
+	</body>
+</html>

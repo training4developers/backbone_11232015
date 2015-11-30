@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+		<script src="js/handlebars.js"></script>
+		<script id="view-widget" type="text/x-underscore-template">
+			<div>
+				<div>Name: <%- model.name %></div>
+				<div>Description: <%- model.description %></div>
+				<div>Color: <%- model.color %></div>
+				<div>Size: <%- model.size %></div>
+				<div>Quantity: <%- model.quantity %></div>
+				<button data-action-edit>Edit</button>
+			</div>
+		</script>
+		<script id="edit-widget" type="text/x-underscore-template">
+			<div>
+				<div><label>Name: <input name='widget-name' value='<%- model.name %>'></label></div>
+				<div><label>Description: <input name='widget-description' value='<%- model.description %>'></label></div>
+				<div><label>Color: <input name='widget-color' value='<%- model.color %>'></label></div>
+				<div><label>Size: <input name='widget-size' value='<%- model.size %>'></label></div>
+				<div><label>Quantity: <input name='widget-quantity' value='<%- model.quantity %>'></label></div>
+				<button data-action-save>Save</button>
+				<button data-action-cancel>Cancel</button>
+			</div>
+		</script>
+	</head>
+
+	<body>
+		<main>
+		</main>
+		<script>
+
+			var AppRouter = Backbone.Router.extend({
+				routes: {
+					"": "viewWidget",
+					"edit": "editWidget"
+				},
+
+				viewWidget: function() {
+					this.trigger("view-widget", widget);
+				},
+
+				editWidget: function() {
+					this.trigger("edit-widget", widget);
+				}
+
+			})
+
+			var Widget = Backbone.Model.extend({
+
+			});
+
+			var widget = new Widget({
+				name: "Test Widget",
+				description: "A test widget",
+				color: "green",
+				size: "large",
+				quantity: 5
+			});
+
+			var ItemView = Backbone.View.extend({
+				events: {
+					"click [data-action-edit]": "edit",
+					"click [data-action-save]": "save",
+					"click [data-action-cancel]": "cancel",
+					"click [data-action-delete]": "delete",
+				},
+				template: function() {
+					return _.template($(this.templateName).html());
+				},
+				render: function() {
+					this.$el.append(this.template()({ model: this.model.toJSON() }));
+					return this.$el;
+				},
+				edit: function(e) {
+					this.trigger("edit-model", this.model);
+				},
+				save: function(e, newModelData) {
+					this.trigger("save-model", newModelData);
+				},
+				cancel: function(e) {
+					this.trigger("cancel-model", this.model);
+				},
+				delete: function(e) {
+					this.trigger("delete-model", this.model);
+				}
+			});
+
+
+			var ViewWidget = ItemView.extend({
+				templateName: "#view-widget"
+			});
+
+			var EditWidget = ItemView.extend({
+				templateName: "#edit-widget",
+				save: function(e) {
+
+					var view = this;
+
+					var widgetFormData = {
+						name: view.$el.find("input[name='widget-name']").val(),
+						description: view.$el.find("input[name='widget-description']").val(),
+						color: view.$el.find("input[name='widget-color']").val(),
+						size: view.$el.find("input[name='widget-size']").val(),
+						quantity: view.$el.find("input[name='widget-quantity']").val()
+					};
+					ItemView.prototype.save.call(view, e, widgetFormData);
+				}
+			});
+
+			function AppController(rootElement, appRouter) {
+
+				controller = this;
+
+				controller.rootElement = rootElement;
+				controller.currentView = null;
+
+				controller.listenTo(appRouter, "view-widget", function(widget) {
+					controller.showViewWidget(widget);
+				});
+
+				controller.listenTo(appRouter, "edit-widget", function(widget) {
+					controller.showEditWidget(widget);
+				});
+
+				controller.showViewWidget = function(widget) {
+
+					var newView = new ViewWidget({
+						model: widget
+					});
+
+					controller.listenTo(newView, "edit-model", function(widget) {
+						controller.showEditWidget(widget);
+					});
+
+					controller.showView(newView);
+					appRouter.navigate("/");
+				};
+
+				controller.showEditWidget = function(widget) {
+
+					var newView = new EditWidget({
+						model: widget
+					});
+
+					controller.listenTo(newView, "save-model", function(newWidgetData) {
+						widget.set(newWidgetData);
+						controller.showViewWidget(widget);
+					});
+
+					controller.listenTo(newView, "cancel-model", function(widget) {
+						controller.showViewWidget(widget);
+					});
+
+					controller.showView(newView);
+					appRouter.navigate("/edit");
+				}
+
+				controller.showView = function(newView) {
+					if (controller.currentView) {
+						controller.currentView.remove();
+					}
+					controller.currentView = newView;
+					controller.rootElement.append(controller.currentView.render());
+				}
+
+				controller.start = function() {
+					controller.showViewWidget(widget);
+				};
+			}
+
+			_.extend(AppController.prototype, Backbone.Events);
+
+			var appController = new AppController($("main"), new AppRouter());
+			appController.start();
+
+			Backbone.history.start({pushState:false});
+
+		</script>
+	</body>
+</html>

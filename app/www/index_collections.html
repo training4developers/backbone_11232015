@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+		<script src="js/handlebars.js"></script>
+	</head>
+
+	<body>
+		<script>
+
+			function movieEach(movie, index, movieList) {
+
+				console.log(movie);
+				console.log(index);
+				console.log(movieList);
+
+			}
+
+			function buildMovies(eachFn) {
+
+				var Movies = Backbone.Collection.extend();
+
+				var Movie = Backbone.Model.extend();
+
+				var movies = new Movies();
+
+				movies.add(new Movie({
+					id: 1,
+					title: "The Barbarian Invasions",
+					year: 2003,
+					director: "Denys Arcand"
+				}));
+
+				movies.add(new Movie({
+					id: 2,
+					title: "Ginger Snaps",
+					year: 2000,
+					director: "John Fawcett"
+				}));
+
+				movies.add(new Movie({
+					id: 3,
+					title: "Bon Cop, Bad Cop",
+					year: 2006,
+					director: "Eric Canuel"
+				}));
+
+				var newerMovies = movies.filter(function(model) {
+					return model.get("year") > 2002;
+				});
+
+				console.dir(newerMovies);
+
+				var movieTitles = movies.pluck("title");
+				console.dir(movieTitles);
+
+				var olderMovies = movies.reject(function(model) {
+					return model.get("year") > 2002;
+				});
+
+				console.dir(olderMovies);
+
+				movies.each(eachFn);
+
+			}
+
+			buildMovies(movieEach);
+
+
+			// console.dir(Movies);
+			// console.dir(movies);
+			//
+			// console.log(movies.remove(movies.get(2)));
+			// console.dir(movies);
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+		<script src="js/handlebars.js"></script>
+	</head>
+
+	<body>
+		<script>
+
+			var m1 = new Backbone.Model({ firstName: "Bob", lastName: "Smith" });
+			var m2 = new Backbone.Model({ firstName: "Jane", lastName: "Smith" });
+
+
+			var c = new Backbone.Collection();
+			c.add(m1);
+			c.add(m2);
+
+			var context = {
+				people: []
+			};
+
+			c.each(function(person) {
+				context.people.push(person.attributes);
+			})
+
+			// var context = {
+			// 	people: [
+			// 		{ firstName: "Bob", lastName: "Smith" },
+			// 		{ firstName: "Jane", lastName: "Smith" }
+			// 	]
+			// };
+
+			var html = `
+<span><%- person.firstName %>
+<% if (person.middleName) {
+	print(person.middleName)
+} %>
+<%- person.lastName %></span>`;
+
+			var html2 = `
+<span><%- person.firstName %>
+<% if (person.middleName) { %>
+
+	<b><%- person.middleName %></b>
+
+<% } %>
+<%- person.lastName %></span>`;
+
+			var html3 = `
+<table>
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+	</tr>
+	<% people.forEach(function(person) { %>
+		<tr>
+			<td><%- person.firstName %></td>
+			<td><%- person.lastName %></td>
+		</tr>
+	<% }); %>
+</table>
+`;
+
+
+
+			var template = _.template(html3);
+			// var content = {
+			// 	person : {
+			// 		firstName: "Mihai",
+			// 		middleName: "Constantin",
+			// 		lastName: "Jurca"
+			// 	}
+			// };
+			var t = template(context);
+
+			$(document.body).append(t);
+
+			console.dir(t);
+
+
+
+		</script>
+	</body>
+</html>

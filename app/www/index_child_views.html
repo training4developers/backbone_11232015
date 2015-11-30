@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Introduction to Backbone.js!</title>
+		<script src="js/jquery.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/backbone.js"></script>
+		<script src="js/handlebars.js"></script>
+	</head>
+
+	<body>
+		<main>
+		</main>
+		<script>
+
+			var people = new Backbone.Collection();
+
+			people.add(new Backbone.Model({
+				firstName: "Bob",
+				lastName: "Smith",
+				age: 34
+			}));
+
+			people.add(new Backbone.Model({
+				firstName: "Jane",
+				lastName: "Smith",
+				age: 33
+			}));
+
+			var PersonRowView = Backbone.View.extend({
+				tagName: "tr",
+				template: _.template(`<td><%- person.firstName %></td>
+					<td><%- person.lastName %></td><td><%- person.age %></td>`),
+				render: function() {
+					this.$el.append(this.template({ person: this.model.toJSON() }));
+					return this.$el;
+				}
+			});
+
+			var PeopleTableView = Backbone.View.extend({
+
+				tagName: "table",
+
+				childViews: [],
+
+				remove: function() {
+					var view = this;
+					view.childViews.forEach(function(childView) {
+						console.log("remove child view");
+						childView.remove();
+					});
+					Backbone.View.prototype.remove.call(view);
+				},
+
+				template: `<thead><tr><th>First Name</th><th>Last Name</th><th>Age</th></tr></thead><tbody></tbody>`,
+
+				render: function() {
+
+					var view = this;
+
+					view.$el.append(view.template);
+
+					var tbody = view.$el.find("tbody");
+
+					view.collection.each(function(person) {
+						view.childViews.push(new PersonRowView({
+							model: person
+						}));
+					});
+
+					view.childViews.forEach(function(childView) {
+						tbody.append(childView.render());
+					});
+
+					return view.$el;
+				}
+			});
+
+			var peopleTableView = new PeopleTableView({
+				collection: people,
+			});
+
+			$("main").append(peopleTableView.render());
+			peopleTableView.remove();
+
+		</script>
+	</body>
+</html>

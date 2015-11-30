@@ -1,5 +1,5 @@
 var Widget = Backbone.Model.extend({
-  urlRoute: "/api/widgets"
+  urlRoot: "/api/widgets"
 });
 
 var Widgets = Backbone.Collection.extend({
